@@ -15,6 +15,9 @@
 		18AF0D1324D8E56900A8B36F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18AF0D1224D8E56900A8B36F /* Preview Assets.xcassets */; };
 		18AF0D1624D8E56900A8B36F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18AF0D1424D8E56900A8B36F /* LaunchScreen.storyboard */; };
 		18AF0D2124D8E56900A8B36F /* NewsReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AF0D2024D8E56900A8B36F /* NewsReaderTests.swift */; };
+		18AF0D3024D8E81D00A8B36F /* ArticleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AF0D2F24D8E81D00A8B36F /* ArticleList.swift */; };
+		18AF0D3324D8E88300A8B36F /* Article+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AF0D3124D8E88300A8B36F /* Article+CoreDataClass.swift */; };
+		18AF0D3424D8E88300A8B36F /* Article+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AF0D3224D8E88300A8B36F /* Article+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,9 @@
 		18AF0D1C24D8E56900A8B36F /* NewsReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AF0D2024D8E56900A8B36F /* NewsReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsReaderTests.swift; sourceTree = "<group>"; };
 		18AF0D2224D8E56900A8B36F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18AF0D2F24D8E81D00A8B36F /* ArticleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleList.swift; sourceTree = "<group>"; };
+		18AF0D3124D8E88300A8B36F /* Article+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Article+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		18AF0D3224D8E88300A8B36F /* Article+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Article+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +87,9 @@
 		18AF0D0524D8E56600A8B36F /* NewsReader */ = {
 			isa = PBXGroup;
 			children = (
+				18AF0D3124D8E88300A8B36F /* Article+CoreDataClass.swift */,
+				18AF0D3224D8E88300A8B36F /* Article+CoreDataProperties.swift */,
+				18AF0D2F24D8E81D00A8B36F /* ArticleList.swift */,
 				18AF0D0624D8E56600A8B36F /* AppDelegate.swift */,
 				18AF0D0824D8E56600A8B36F /* SceneDelegate.swift */,
 				18AF0D0D24D8E56600A8B36F /* ContentView.swift */,
@@ -211,10 +220,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18AF0D3324D8E88300A8B36F /* Article+CoreDataClass.swift in Sources */,
 				18AF0D0C24D8E56600A8B36F /* NewsReader.xcdatamodeld in Sources */,
 				18AF0D0724D8E56600A8B36F /* AppDelegate.swift in Sources */,
+				18AF0D3024D8E81D00A8B36F /* ArticleList.swift in Sources */,
 				18AF0D0E24D8E56600A8B36F /* ContentView.swift in Sources */,
 				18AF0D0924D8E56600A8B36F /* SceneDelegate.swift in Sources */,
+				18AF0D3424D8E88300A8B36F /* Article+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

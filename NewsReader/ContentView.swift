@@ -9,8 +9,36 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.managedObjectContext) var moc
+
+    @FetchRequest(entity: Article.entity(), sortDescriptors: [
+        NSSortDescriptor(keyPath: \Article.title, ascending: true)
+    ]) var articles: FetchedResults<Article>
+    
+    // Manage the connection to the API and storing the results into Core Data
+    var articleList = ArticleList()
+    
     var body: some View {
-        Text("Hello, World!")
+        VStack(spacing: 0) {
+            List(articles) { article in
+                ArticlePreviewView(for: article)
+            }
+            
+        }
+    }
+}
+
+struct ArticlePreviewView: View {
+    var article: Article
+    
+    var body: some View {
+        VStack {
+            Text(article.title)
+        }
+    }
+    
+    init(for article: Article) {
+        self.article = article
     }
 }
 
@@ -19,3 +47,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
