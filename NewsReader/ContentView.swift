@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
@@ -19,11 +20,22 @@ struct ContentView: View {
     var articleList = ArticleList()
     
     var body: some View {
-        VStack(spacing: 0) {
-            List(articles) { article in
-                ArticlePreviewView(for: article)
-            }
-            
+        NavigationView {
+            VStack(spacing: 0) {
+                List(articles) { article in
+                    ArticlePreviewView(for: article)
+                }
+            }.navigationBarItems(leading: Button("Clear") {
+                print("Clearing Core Data")
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Article")
+                let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                do {
+                    try self.moc.execute(deleteRequest)
+                    try self.moc.save()
+                } catch {
+                    print("Clearing went kaboom \(error.localizedDescription)")
+                }
+            })
         }
     }
 }

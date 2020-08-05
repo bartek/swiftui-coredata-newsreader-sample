@@ -60,7 +60,7 @@ class ArticleList {
     func parseResponse(data: Data?, urlResponse: URLResponse?, error: Error?) {
         print("Parsing a response")
         guard error == nil else {
-            print("\(error)")
+            print("\(error!)")
             DispatchQueue.main.async {
                 self.currentlyLoading = false
             }
@@ -76,7 +76,6 @@ class ArticleList {
         }
         
         let articles = getArticlesFromJson(content: content)
-        print(articles)
         
         let moc = appDelegate.persistentContainer.viewContext
         let articleEntity = NSEntityDescription.entity(forEntityName: "Article", in: moc)!
@@ -84,9 +83,10 @@ class ArticleList {
         
         DispatchQueue.main.async {
             for articleData in articles {
-                print(articleData)
                 // add to core data
                 let article = NSManagedObject(entity: articleEntity, insertInto: moc)
+                moc.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
+
                 article.setValue(articleData.title, forKeyPath: "title")
                 article.setValue(articleData.author, forKeyPath: "author")
             }
