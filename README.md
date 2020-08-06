@@ -9,12 +9,12 @@ understand how I might use Core Data in this case, but there are plenty of
 things I am unsure, or unhappy with, and continue to learn about!
 
 If you read the code and have opinions or feedback, I'd love it! That's the
-reason for publishing -- for learning :)
-
-The scope of this project was to get a naive and functional news reader
-in place for the purposes of the learning described.
+reason for publishing :)
 
 ### What this project does
+
+The scope of this project is a naive newsreader that does a few things well and
+a lot of things poorly.
 
 - [ ] Fetches news articles (with title: "apple") from https://newsapi.org
 - [ ] Basic implementation of opening articles in a webview
