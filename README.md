@@ -1,13 +1,28 @@
 # swiftui-coredata-newsreader-sample
 
-This repository is, as most things in my profile, is me failing-in-public, and
-learning some things along the way! As much as possible, Swift and Swift UI is
-used.
+This is my _fail-in-public_ approach to learning Swift and iOS development in
+general!
 
-For this particular repository, the goals are:
+For this exercise, I wanted to understand how to use Core Data when I am dealing
+with an external API feed. As of writing this README, I've done my best to
+understand how I might use Core Data in this case, but there are plenty of
+things I am unsure, or unhappy with, and continue to learn about!
 
-[ ] Provide an "experience" which provides news articles from an external API
-and allows them to be navigated to and swiped away (marked as read)
-[ ] Implement persistent storage using Core Data
-[ ] Use data access patterns that allow for mutability as the app grows
-[ ] Consider memory and performance, and make that reasonable to test
+If you read the code and have opinions or feedback, I'd love it! That's the
+reason for publishing -- for learning :)
+
+The scope of this project was to get a naive and functional news reader
+in place for the purposes of the learning described.
+
+### What this project does
+
+[ ] Fetches news articles (with title: "apple") from https://newsapi.org
+[ ] Basic implementation of opening articles in a webview
+[ ] Allows user to "infinitely" scroll through results (hard cap of 500 articles)
+[ ] Uses a few built in techniques and other means to prevent duplicate data and
+unnecessary requests.
+[ ] Allows user to dismiss article as read, which changes stored data, but does
+not remove the data from the persistent store
+
+As you can see, this isn't an application with much of the nuance of a news
+reader considered! Enjoy!
