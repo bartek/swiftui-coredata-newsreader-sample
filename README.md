@@ -16,12 +16,12 @@ in place for the purposes of the learning described.
 
 ### What this project does
 
-[ ] Fetches news articles (with title: "apple") from https://newsapi.org
-[ ] Basic implementation of opening articles in a webview
-[ ] Allows user to "infinitely" scroll through results (hard cap of 500 articles)
-[ ] Uses a few built in techniques and other means to prevent duplicate data and
+- [ ] Fetches news articles (with title: "apple") from https://newsapi.org
+- [ ] Basic implementation of opening articles in a webview
+- [ ] Allows user to "infinitely" scroll through results (hard cap of 500 articles)
+- [ ] Uses a few built in techniques and other means to prevent duplicate data and
 unnecessary requests.
-[ ] Allows user to dismiss article as read, which changes stored data, but does
+- [ ] Allows user to dismiss article as read, which changes stored data, but does
 not remove the data from the persistent store
 
 As you can see, this isn't an application with much of the nuance of a news
