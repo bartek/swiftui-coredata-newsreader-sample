@@ -13,7 +13,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
 
     @FetchRequest(entity: Article.entity(), sortDescriptors: [
-        NSSortDescriptor(keyPath: \Article.title, ascending: true)
+        NSSortDescriptor(keyPath: \Article.publishedAt, ascending: true)
     ]) var articles: FetchedResults<Article>
     
     // Manage the connection to the API and storing the results into Core Data
@@ -24,6 +24,9 @@ struct ContentView: View {
             VStack(spacing: 0) {
                 List(articles) { article in
                     ArticlePreviewView(for: article)
+                    .onAppear {
+                        self.articleList.loadMoreArticles(article)
+                    }
                 }
             }.navigationBarItems(leading: Button("Clear") {
                 print("Clearing Core Data")

@@ -19,5 +19,6 @@ extension Article: Identifiable {
 
     @NSManaged public var title: String
     @NSManaged public var author: String
+    @NSManaged public var publishedAt: Date
 
 }

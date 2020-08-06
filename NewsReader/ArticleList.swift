@@ -21,13 +21,15 @@ class ArticleList {
     /*let fetchRequest: NSFetchRequest<Article> = Article.fetchRequest()*/
     
     // Hard codes searching for anything to do with "apple"
-    // FIXME: apiKey is not mine ?
-    private final var urlBase = "https://newsapi.org/v2/everything?q=apple&apiKey=6ffeaceffa7949b68bf9d68b9f06fd33&language=en&page="
+    private final var urlBase = "https://newsapi.org/v2/everything?q=apple&apiKey=0411380452114d41b844618f26517140&language=en&page="
     
     // Necessary for managing loading state
     var nextPageToLoad = 1
     var doneLoading = false
     var currentlyLoading = false
+    
+    // Articles fetched from the API are stored in memory for easy iteration and we don't worry about losing them on app close.
+    @Published var articleItems = [ArticleData]()
     
     init() {
         loadMoreArticles()
@@ -49,16 +51,29 @@ class ArticleList {
     }
     
     func shouldLoadMoreArticles(_ article: Article? = nil) -> Bool {
+        
+        // If we're done loading (based on our arbitrary limit), don't load more
+        if doneLoading || currentlyLoading {
+            return false
+        }
+        
         // If the Article is nil, we likely are loading from initial state
         if article == nil {
             return true
+        }
+        
+        // If the article id (from onAppear) matches what's in memory, we're near end of list.
+        for i in (articleItems.count-4) ... (articleItems.count-1) {
+            if i >= 0 && articleItems[i].uuid == articleItems[i].uuid {
+                return true
+            }
+            
         }
         
         return false
     }
     
     func parseResponse(data: Data?, urlResponse: URLResponse?, error: Error?) {
-        print("Parsing a response")
         guard error == nil else {
             print("\(error!)")
             DispatchQueue.main.async {
@@ -83,12 +98,11 @@ class ArticleList {
         
         DispatchQueue.main.async {
             for articleData in articles {
-                // add to core data
+                // Save to persistent store
                 let article = NSManagedObject(entity: articleEntity, insertInto: moc)
-                moc.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
-
                 article.setValue(articleData.title, forKeyPath: "title")
                 article.setValue(articleData.author, forKeyPath: "author")
+                article.setValue(articleData.publishedAt, forKeyPath: "publishedAt")
             }
             
             do {
@@ -114,9 +128,7 @@ class ArticleList {
         guard let articleMapList = resultMap["articles"] as? [[String: Any]] else {
             return []
         }
-        
-        var articleItems = [ArticleData]()
-        
+                
         for articleMap in articleMapList {
             guard let title = articleMap["title"] as? String else {
                 continue
@@ -126,7 +138,18 @@ class ArticleList {
                 continue
             }
             
-            articleItems.append(ArticleData(title: title, author: author))
+            guard let publishedAt = articleMap["publishedAt"] as? String else {
+                continue
+            }
+            
+            // Need to convert the publishedAt date as it's coming from a JSON string
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            
+            
+            let publishedDate = dateFormatter.date(from: publishedAt)!
+            articleItems.append(ArticleData(title: title, author: author, publishedAt: publishedDate))
         }
         
         return articleItems
@@ -136,9 +159,12 @@ class ArticleList {
 class ArticleData: Identifiable {
     var title: String = ""
     var author: String = ""
+    var publishedAt: Date?
+    var uuid: String = UUID().uuidString
     
-    init(title: String, author: String) {
+    init(title: String, author: String, publishedAt: Date) {
         self.title = title
         self.author = author
+        self.publishedAt = publishedAt
     }
 }

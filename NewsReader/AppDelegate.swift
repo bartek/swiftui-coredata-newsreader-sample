@@ -44,6 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         */
         let container = NSPersistentContainer(name: "NewsReader")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            
+            // The Trump merge policy ensures any new data that matches the unique constraint set in Core Data replaces whatever it overlaps. What an unfortunate term for this time!
+            container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+            
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
