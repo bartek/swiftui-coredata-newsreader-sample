@@ -23,7 +23,7 @@ struct ContentView: View {
         NavigationView {
             VStack(spacing: 0) {
                 List(articles) { article in
-                    ArticlePreviewView(for: article)
+                    ArticleView(for: article)
                     .onAppear {
                         self.articleList.loadMoreArticles(article)
                     }
@@ -43,13 +43,15 @@ struct ContentView: View {
     }
 }
 
-struct ArticlePreviewView: View {
+struct ArticleView: View {
     var article: Article
     
     var body: some View {
-        VStack {
-            Text(article.title)
+        VStack(alignment: .leading) {
+            Text(article.title).font(.headline)
+            Text(article.author).font(.subheadline)
         }
+        .padding()
     }
     
     init(for article: Article) {
@@ -57,9 +59,12 @@ struct ArticlePreviewView: View {
     }
 }
 
+#if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        return ContentView().environment(\.managedObjectContext, context)
     }
 }
+#endif
 
