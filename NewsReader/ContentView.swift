@@ -23,7 +23,7 @@ struct ContentView: View {
         NavigationView {
             VStack(spacing: 0) {
                 List(articles) { article in
-                    ArticleView(for: article)
+                    ArticleItemView(for: article)
                     .onAppear {
                         self.articleList.loadMoreArticles(article)
                     }
@@ -43,19 +43,43 @@ struct ContentView: View {
     }
 }
 
-struct ArticleView: View {
+struct ArticleItemView: View {
+    @State var showingArticle = false
+    
     var article: Article
     
     var body: some View {
-        VStack(alignment: .leading) {
+        
+        let tap = TapGesture()
+            .onEnded { _ in
+                self.showingArticle = true
+            }
+        return VStack(alignment: .leading) {
             Text(article.title).font(.headline)
             Text(article.author).font(.subheadline)
+            .gesture(tap)
         }
         .padding()
+        .sheet(isPresented: $showingArticle) {
+            ArticleDetailView(for: self.article.url)
+        }
     }
     
     init(for article: Article) {
         self.article = article
+    }
+}
+
+// For iOS 14 (Big Sur), we might want to use `Link` to load this in the defined browser!
+struct ArticleDetailView: View {
+    var articleUrl: String
+    
+    var body: some View {
+        Webview(url: articleUrl)
+    }
+    
+    init(for articleUrl: String) {
+        self.articleUrl = articleUrl
     }
 }
 

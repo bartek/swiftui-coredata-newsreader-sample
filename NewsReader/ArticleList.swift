@@ -103,6 +103,7 @@ class ArticleList {
                 article.setValue(articleData.title, forKeyPath: "title")
                 article.setValue(articleData.author, forKeyPath: "author")
                 article.setValue(articleData.publishedAt, forKeyPath: "publishedAt")
+                article.setValue(articleData.url, forKeyPath: "url")
             }
             
             do {
@@ -142,14 +143,22 @@ class ArticleList {
                 continue
             }
             
+            guard let url = articleMap["url"] as? String else {
+                continue
+            }
+            
             // Need to convert the publishedAt date as it's coming from a JSON string
             let dateFormatter = DateFormatter()
             dateFormatter.locale = Locale(identifier: "en_US_POSIX")
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-            
-            
             let publishedDate = dateFormatter.date(from: publishedAt)!
-            articleItems.append(ArticleData(title: title, author: author, publishedAt: publishedDate))
+            
+            articleItems.append(ArticleData(
+                title: title,
+                author: author,
+                url: url,
+                publishedAt: publishedDate
+            ))
         }
         
         return articleItems
@@ -160,11 +169,13 @@ class ArticleData: Identifiable {
     var title: String = ""
     var author: String = ""
     var publishedAt: Date?
+    var url: String = ""
     var uuid: String = UUID().uuidString
     
-    init(title: String, author: String, publishedAt: Date) {
+    init(title: String, author: String, url: String, publishedAt: Date) {
         self.title = title
         self.author = author
+        self.url = url
         self.publishedAt = publishedAt
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1897CBF024DCD4CD00B85DD4 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1897CBEF24DCD4CD00B85DD4 /* WebView.swift */; };
 		18AF0D0724D8E56600A8B36F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AF0D0624D8E56600A8B36F /* AppDelegate.swift */; };
 		18AF0D0924D8E56600A8B36F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AF0D0824D8E56600A8B36F /* SceneDelegate.swift */; };
 		18AF0D0C24D8E56600A8B36F /* NewsReader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18AF0D0A24D8E56600A8B36F /* NewsReader.xcdatamodeld */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1897CBEF24DCD4CD00B85DD4 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		18AF0D0324D8E56600A8B36F /* NewsReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AF0D0624D8E56600A8B36F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18AF0D0824D8E56600A8B36F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				18AF0D0624D8E56600A8B36F /* AppDelegate.swift */,
 				18AF0D0824D8E56600A8B36F /* SceneDelegate.swift */,
 				18AF0D0D24D8E56600A8B36F /* ContentView.swift */,
+				1897CBEF24DCD4CD00B85DD4 /* WebView.swift */,
 				18AF0D0F24D8E56800A8B36F /* Assets.xcassets */,
 				18AF0D1424D8E56900A8B36F /* LaunchScreen.storyboard */,
 				18AF0D1724D8E56900A8B36F /* Info.plist */,
@@ -221,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18AF0D3324D8E88300A8B36F /* Article+CoreDataClass.swift in Sources */,
+				1897CBF024DCD4CD00B85DD4 /* WebView.swift in Sources */,
 				18AF0D0C24D8E56600A8B36F /* NewsReader.xcdatamodeld in Sources */,
 				18AF0D0724D8E56600A8B36F /* AppDelegate.swift in Sources */,
 				18AF0D3024D8E81D00A8B36F /* ArticleList.swift in Sources */,

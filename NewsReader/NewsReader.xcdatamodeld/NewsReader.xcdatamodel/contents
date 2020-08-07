@@ -4,6 +4,7 @@
         <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="publishedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="title"/>
@@ -11,6 +12,6 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Article" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Article" positionX="-63" positionY="-18" width="128" height="103"/>
     </elements>
 </model>
