@@ -19,12 +19,12 @@ tinkered with any SwiftUI features available in iOS 14.
 The scope of this project is a naive newsreader that does a few things OK-ish and
 a lot of things poorly.
 
-- [*] Fetches news articles (with title: "apple") from https://newsapi.org
-- [*] Basic implementation of opening articles in a webview
-- [*] Allows user to "infinitely" scroll through results (hard cap of 500 articles)
-- [*] Uses a Core Data techniques and other means to prevent duplicate data and
+- [x] Fetches news articles (with title: "apple") from https://newsapi.org
+- [x] Basic implementation of opening articles in a webview
+- [x] Allows user to "infinitely" scroll through results (hard cap of 500 articles)
+- [x] Uses a Core Data techniques and other means to prevent duplicate data and
 unnecessary requests.
-- [*] Allows user to dismiss article as read, which changes stored data, but does
+- [x] Allows user to dismiss article as read, which changes stored data, but does
 not remove the data from the persistent store
 
 I hope reading this code helped you in some way!

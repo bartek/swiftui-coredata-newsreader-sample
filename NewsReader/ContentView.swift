@@ -39,7 +39,7 @@ struct ContentView: View {
             })
         }
     }
-    
+
     // Helper for debugging purposes, ain't pretty
     // FIXME: Does not refresh list when delete request executes
     func clearCoreData() {
