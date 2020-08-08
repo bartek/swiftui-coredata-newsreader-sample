@@ -12,9 +12,13 @@ import CoreData
 struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
 
-    @FetchRequest(entity: Article.entity(), sortDescriptors: [
-        NSSortDescriptor(keyPath: \Article.publishedAt, ascending: true)
-    ]) var articles: FetchedResults<Article>
+    @FetchRequest(
+        entity: Article.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \Article.publishedAt, ascending: true)
+        ],
+        predicate: NSPredicate(format: "hidden == %@", false)
+    ) var articles: FetchedResults<Article>
     
     // Manage the connection to the API and storing the results into Core Data
     var articleList = ArticleList()
@@ -22,24 +26,43 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                List(articles) { article in
-                    ArticleItemView(for: article)
-                    .onAppear {
-                        self.articleList.loadMoreArticles(article)
-                    }
+                List {
+                    ForEach(articles, id: \.self) { article in
+                        ArticleItemView(for: article)
+                        .onAppear {
+                            self.articleList.loadMoreArticles(article)
+                        }
+                    }.onDelete(perform: delete)
                 }
-            }.navigationBarItems(leading: Button("Clear") {
-                print("Clearing Core Data")
-                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Article")
-                let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-                do {
-                    try self.moc.execute(deleteRequest)
-                    try self.moc.save()
-                } catch {
-                    print("Clearing went kaboom \(error.localizedDescription)")
-                }
+            }.navigationBarItems(leading: Button("Clear Data") {
+                self.clearCoreData()
             })
         }
+    }
+    
+    // Helper for debugging purposes, ain't pretty
+    // FIXME: Does not refresh list when delete request executes
+    func clearCoreData() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Article")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        do {
+            try self.moc.execute(deleteRequest)
+            try self.moc.save()
+        } catch {
+            print("Clearing went kaboom \(error.localizedDescription)")
+        }
+    }
+    
+    // For this naive implementation in this app, the data is retained in Core Data with an updated status.
+    // This ensures that it does not get re-added when newsapi is called again.
+    // The purpose of this code was to understand how to update a fetched result.
+    func delete(at offsets: IndexSet) {
+        for index in offsets {
+            let article = articles[index]
+            article.setValue(true, forKey: "hidden")
+        }
+        
+        try? moc.save()
     }
 }
 

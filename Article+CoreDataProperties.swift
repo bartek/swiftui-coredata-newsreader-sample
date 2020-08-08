@@ -21,5 +21,5 @@ extension Article: Identifiable {
     @NSManaged public var author: String
     @NSManaged public var publishedAt: Date
     @NSManaged public var url: String
-
+    @NSManaged public var hidden: Bool
 }

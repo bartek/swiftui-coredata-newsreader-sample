@@ -51,11 +51,12 @@ class ArticleList {
     }
     
     func shouldLoadMoreArticles(_ article: Article? = nil) -> Bool {
-        
+        print("shouldLoadMoreArticles")
         // If we're done loading (based on our arbitrary limit), don't load more
         if doneLoading || currentlyLoading {
             return false
         }
+    
         
         // If the Article is nil, we likely are loading from initial state
         if article == nil {
