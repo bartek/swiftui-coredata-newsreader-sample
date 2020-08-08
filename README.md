@@ -21,7 +21,7 @@ a lot of things poorly.
 
 - [x] Fetches news articles (with title: "apple") from https://newsapi.org
 - [x] Basic implementation of opening articles in a webview
-- [x] Allows user to "infinitely" scroll through results (hard cap of 500 articles)
+- [x] Allows user to "infinitely" scroll through results (capped once final page of API results is hit)
 - [x] Uses a Core Data techniques and other means to prevent duplicate data and
 unnecessary requests.
 - [x] Allows user to dismiss article as read, which changes stored data, but does
