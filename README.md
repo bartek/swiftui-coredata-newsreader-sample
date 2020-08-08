@@ -3,26 +3,28 @@
 This is my _fail-in-public_ approach to learning Swift and iOS development in
 general!
 
-For this exercise, I wanted to understand how to use Core Data when I am dealing
-with an external API feed. As of writing this README, I've done my best to
-understand how I might use Core Data in this case, but there are plenty of
-things I am unsure, or unhappy with, and continue to learn about!
+This is a naive and simple "news reader" and the scope has been capped to what
+is defined below. I don't plan to add features to this application but I may
+update it as I learn more within this ecosystem.
 
-If you read the code and have opinions or feedback, I'd love it! That's the
-reason for publishing :)
+The primary purposes of building this were to understand how Core Data interacts
+with SwiftUI. There are plenty of things I am unsure, unhappy with, and continue
+to learn about!
+
+This application is written for iOS 13. I am not on Big Sur yet, so I have not
+tinkered with any SwiftUI features available in iOS 14.
 
 ### What this project does
 
-The scope of this project is a naive newsreader that does a few things well and
+The scope of this project is a naive newsreader that does a few things OK-ish and
 a lot of things poorly.
 
-- [ ] Fetches news articles (with title: "apple") from https://newsapi.org
-- [ ] Basic implementation of opening articles in a webview
-- [ ] Allows user to "infinitely" scroll through results (hard cap of 500 articles)
-- [ ] Uses a few built in techniques and other means to prevent duplicate data and
+- [*] Fetches news articles (with title: "apple") from https://newsapi.org
+- [*] Basic implementation of opening articles in a webview
+- [*] Allows user to "infinitely" scroll through results (hard cap of 500 articles)
+- [*] Uses a Core Data techniques and other means to prevent duplicate data and
 unnecessary requests.
-- [ ] Allows user to dismiss article as read, which changes stored data, but does
+- [*] Allows user to dismiss article as read, which changes stored data, but does
 not remove the data from the persistent store
 
-As you can see, this isn't an application with much of the nuance of a news
-reader considered! Enjoy!
+I hope reading this code helped you in some way!
