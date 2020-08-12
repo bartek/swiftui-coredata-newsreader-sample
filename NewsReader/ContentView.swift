@@ -28,9 +28,11 @@ struct ContentView: View {
             VStack(spacing: 0) {
                 List {
                     ForEach(articles, id: \.self) { article in
-                        ArticleItemView(for: article)
-                        .onAppear {
-                            self.articleList.loadMoreArticles(article)
+                        NavigationLink(destination: ArticleDetailView(for: article.url)) {
+                            ArticleItemView(for: article)
+                            .onAppear {
+                                self.articleList.loadMoreArticles(article)
+                            }
                         }
                     }.onDelete(perform: delete)
                 }
@@ -67,25 +69,15 @@ struct ContentView: View {
 }
 
 struct ArticleItemView: View {
-    @State var showingArticle = false
-    
     var article: Article
     
     var body: some View {
         
-        let tap = TapGesture()
-            .onEnded { _ in
-                self.showingArticle = true
-            }
         return VStack(alignment: .leading) {
             Text(article.title).font(.headline)
             Text(article.author).font(.subheadline)
-            .gesture(tap)
         }
         .padding()
-        .sheet(isPresented: $showingArticle) {
-            ArticleDetailView(for: self.article.url)
-        }
     }
     
     init(for article: Article) {

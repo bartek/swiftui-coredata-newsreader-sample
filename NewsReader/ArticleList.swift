@@ -17,8 +17,6 @@ class ArticleList {
     fileprivate var appDelegate: AppDelegate = {
         UIApplication.shared.delegate as! AppDelegate
     }()
-        
-    /*let fetchRequest: NSFetchRequest<Article> = Article.fetchRequest()*/
     
     // Hard codes searching for anything to do with "apple"
     private final var urlBase = "https://newsapi.org/v2/everything?q=apple&apiKey=0411380452114d41b844618f26517140&language=en&page="
@@ -51,8 +49,6 @@ class ArticleList {
     }
     
     func shouldLoadMoreArticles(_ article: Article? = nil) -> Bool {
-        print("shouldLoadMoreArticles")
-        // If we're done loading (based on our arbitrary limit), don't load more
         if doneLoading || currentlyLoading {
             return false
         }
