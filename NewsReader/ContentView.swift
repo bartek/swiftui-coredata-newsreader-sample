@@ -23,9 +23,29 @@ struct ContentView: View {
     // Manage the connection to the API and storing the results into Core Data
     var articleList = ArticleList()
     
+    @State private var searchString: String = ""
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
+                HStack {
+                    
+                    TextField("", text: $searchString)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    Button(action: {
+                        // Update the search query
+                        self.articleList.updateSearchQuery(self.searchString)
+                    }) {
+                        Text("Search")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(Color.white)
+                        
+                    }
+                }.padding(20)
+                
+                    
                 List {
                     ForEach(articles, id: \.self) { article in
                         NavigationLink(destination: ArticleDetailView(for: article.url)) {
@@ -37,24 +57,11 @@ struct ContentView: View {
                     }.onDelete(perform: delete)
                 }
             }.navigationBarItems(leading: Button("Clear Data") {
-                self.clearCoreData()
+                self.articleList.reset()
             })
         }
     }
 
-    // Helper for debugging purposes, ain't pretty
-    // FIXME: Does not refresh list when delete request executes
-    func clearCoreData() {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Article")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        do {
-            try self.moc.execute(deleteRequest)
-            try self.moc.save()
-        } catch {
-            print("Clearing went kaboom \(error.localizedDescription)")
-        }
-    }
-    
     // For this naive implementation in this app, the data is retained in Core Data with an updated status.
     // This ensures that it does not get re-added when newsapi is called again.
     // The purpose of this code was to understand how to update a fetched result.

@@ -19,7 +19,15 @@ class ArticleList {
     }()
     
     // Hard codes searching for anything to do with "apple"
-    private final var urlBase = "https://newsapi.org/v2/everything?q=apple&apiKey=0411380452114d41b844618f26517140&language=en&page="
+    private final var urlBase = "https://newsapi.org/v2/everything"
+
+    // Additional paramaters passed into newsapi
+    // An API key would not normally be included in a code base but there's no risk in including this particular newsapi key here.
+    let apiKey = "0411380452114d41b844618f26517140"
+    let language = "en"
+
+    // Default to search for `apple`
+    var searchQuery = "apple"
     
     // Necessary for managing loading state
     var nextPageToLoad = 1
@@ -38,8 +46,9 @@ class ArticleList {
             return
         }
         
-        let urlString = "\(urlBase)\(nextPageToLoad)"
+        let urlString = "\(urlBase)?q=\(searchQuery)&apiKey=\(apiKey)&language=\(language)&page=\(nextPageToLoad)"
         let url = URL(string: urlString)!
+        print("Calling \(url)")
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -68,6 +77,34 @@ class ArticleList {
         }
         
         return false
+    }
+    
+    // Updates the searchQuery and clears local cache
+    func updateSearchQuery(_ query: String) {
+        self.reset()
+        
+        self.searchQuery = query
+        self.loadMoreArticles()
+    }
+    
+    // Reset persistent store and local cache
+    func reset() {
+        self.articleItems = []
+        self.doneLoading = false
+        self.nextPageToLoad = 1
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Article")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        let moc = appDelegate.persistentContainer.viewContext
+        
+        do {
+            try moc.execute(deleteRequest)
+            try moc.save()
+        } catch {
+            print("Clearing went kaboom \(error.localizedDescription)")
+        }
+        
+        moc.reset()
     }
     
     func parseResponse(data: Data?, urlResponse: URLResponse?, error: Error?) {
